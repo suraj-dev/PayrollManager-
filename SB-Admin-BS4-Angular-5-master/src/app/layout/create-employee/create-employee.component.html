@@ -1,30 +1,85 @@
 <section class="main-container">
-    <h2>Create Employee</h2>
+        <h2>Employee Details</h2>
+        <hr>
+        <form>
+            <div class="form-group row">
+                <label for="fname" class="col-sm-2 col-form-label">First Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control medium-input" id="fname" placeholder="Enter first name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lname" class="col-sm-2 col-form-label">Last Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control medium-input" id="lname" placeholder="Enter last name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="emailaddr" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control medium-input" id="emailaddr"
+                           placeholder="Enter email address">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number:</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control medium-input" id="phoneNo"
+                           placeholder="Enter phone number">
+                </div>
+            </div>
+        </form>
+   <br>
+    <h2>Salary Details</h2>
     <hr>
     <form>
         <div class="form-group row">
-            <label for="fname" class="col-sm-2 col-form-label">First Name:</label>
+            <label for="grossPay" class="col-sm-2 col-form-label">Annual Gross Pay:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control medium-input" id="fname" placeholder="Enter first name">
+                <input type="number" class="form-control medium-input" id="grossPay" placeholder="Enter annual gross pay in USD">
             </div>
         </div>
         <div class="form-group row">
-            <label for="lname" class="col-sm-2 col-form-label">Last Name:</label>
+            <label for="stateTax" class="col-sm-2 col-form-label">State Tax(%):</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control medium-input" id="lname" placeholder="Enter last name">
+                <input type="number" class="form-control medium-input" id="stateTax" placeholder="Enter state tax in percentage">
             </div>
         </div>
         <div class="form-group row">
-            <label for="emailaddr" class="col-sm-2 col-form-label">Email:</label>
+            <label for="federalTax" class="col-sm-2 col-form-label">Federal Tax(%):</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control medium-input" id="emailaddr" placeholder="Enter email address">
+                <input type="number" class="form-control medium-input" id="federalTax"
+                       placeholder="Enter federal tax in percentage">
             </div>
         </div>
         <div class="form-group row">
-            <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number:</label>
+            <label for="healthInsurance" class="col-sm-2 col-form-label">Health Insurance(%):</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="phoneNo" placeholder="Enter phone number">
+                <input type="number" class="form-control medium-input" id="healthInsurance"
+                       placeholder="Enter health insurance deduction in percentage">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="ssnTax" class="col-sm-2 col-form-label">Social Security Tax(%):</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control medium-input" id="ssnTax"
+                       placeholder="Enter social security tax in percentage">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="reimbursements" class="col-sm-2 col-form-label">Reimbursements:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control medium-input" id="reimbursements"
+                       placeholder="Enter reimbursements in USD">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="bonus" class="col-sm-2 col-form-label">Bonus:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control medium-input" id="bonus"
+                       placeholder="Enter bonus in USD">
             </div>
         </div>
     </form>
+
 </section>
