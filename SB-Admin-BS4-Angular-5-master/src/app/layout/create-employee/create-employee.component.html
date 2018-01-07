@@ -1,86 +1,102 @@
 <section class="main-container">
-        <h2>Employee Details</h2>
-        <hr>
-        <form>
-            <div class="form-group row">
-                <label for="fname" class="col-sm-2 col-form-label">First Name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control medium-input" id="fname" placeholder="Enter first name">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="lname" class="col-sm-2 col-form-label">Last Name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control medium-input" id="lname" placeholder="Enter last name">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="emailaddr" class="col-sm-2 col-form-label">Email:</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control medium-input" id="emailaddr"
-                           placeholder="Enter email address">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number:</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control medium-input" id="phoneNo"
-                           placeholder="Enter phone number">
-                </div>
-            </div>
-        </form>
-   <br>
-    <h2>Salary Details</h2>
+    <h2>Employee Details</h2>
     <hr>
-    <form>
+    <form #createEmployeeForm="ngForm" (ngSubmit)="createEmployee(createEmployeeForm)">
+        <div class="form-group row">
+            <label for="fname" class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                <input type="text" name="firstName" class="form-control medium-input" id="fname" placeholder="Enter first name" ngModel>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lname" class="col-sm-2 col-form-label">Last Name:</label>
+            <div class="col-sm-10">
+                <input type="text" name="lastName" class="form-control medium-input" id="lname" placeholder="Enter last name" ngModel>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="emailaddr" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" name="email" class="form-control medium-input" id="emailaddr"
+                       placeholder="Enter email address" ngModel>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Address:</label>
+            <div class="col-sm-10">
+                <input type="text" name="address" class="form-control medium-input" id="address"
+                       placeholder="Enter address" ngModel>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number:</label>
+            <div class="col-sm-10">
+                <input type="number" name="phoneNumber" class="form-control medium-input" id="phoneNo"
+                       placeholder="Enter phone number" ngModel>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="ssn" class="col-sm-2 col-form-label">Phone Number:</label>
+            <div class="col-sm-10">
+                <input type="number" name="socialSecurityNumber" class="form-control medium-input" id="ssn"
+                       placeholder="Enter social security number" ngModel>
+            </div>
+        </div>
+
+        <br>
+        <h2>Salary Details</h2>
+        <hr>
         <div class="form-group row">
             <label for="grossPay" class="col-sm-2 col-form-label">Annual Gross Pay:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="grossPay" placeholder="Enter annual gross pay in USD">
+                <input type="number" name="grossPay" class="form-control medium-input" id="grossPay"
+                       placeholder="Enter annual gross pay in USD" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="stateTax" class="col-sm-2 col-form-label">State Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="stateTax" placeholder="Enter state tax in percentage">
+                <input type="number" name="stateTax" class="form-control medium-input" id="stateTax"
+                       placeholder="Enter state tax in percentage" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="federalTax" class="col-sm-2 col-form-label">Federal Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="federalTax"
-                       placeholder="Enter federal tax in percentage">
+                <input type="number" name="federalTax" class="form-control medium-input" id="federalTax"
+                       placeholder="Enter federal tax in percentage" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="healthInsurance" class="col-sm-2 col-form-label">Health Insurance(%):</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="healthInsurance"
-                       placeholder="Enter health insurance deduction in percentage">
+                <input type="number" name="healthInsurance" class="form-control medium-input" id="healthInsurance"
+                       placeholder="Enter health insurance deduction in percentage" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="ssnTax" class="col-sm-2 col-form-label">Social Security Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="ssnTax"
-                       placeholder="Enter social security tax in percentage">
+                <input type="number" name="ssnTax" class="form-control medium-input" id="ssnTax"
+                       placeholder="Enter social security tax in percentage" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="reimbursements" class="col-sm-2 col-form-label">Reimbursements:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="reimbursements"
-                       placeholder="Enter reimbursements in USD">
+                <input type="number" name="reimbursements" class="form-control medium-input" id="reimbursements"
+                       placeholder="Enter reimbursements in USD" ngModel>
             </div>
         </div>
         <div class="form-group row">
             <label for="bonus" class="col-sm-2 col-form-label">Bonus:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control medium-input" id="bonus"
-                       placeholder="Enter bonus in USD">
+                <input type="number" name="bonus" class="form-control medium-input" id="bonus"
+                       placeholder="Enter bonus in USD" ngModel>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <button type="button" class="btn btn-primary">Submit</button>
+
 
 </section>
