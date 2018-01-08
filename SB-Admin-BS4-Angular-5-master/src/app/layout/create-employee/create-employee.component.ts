@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { NgForm } from '@angular/forms';
+import {EmployeeService} from "../../services/employee.service";
+
 
 @Component({
     selector: 'app-charts',
@@ -9,7 +11,11 @@ import { NgForm } from '@angular/forms';
     animations: [routerTransition()]
 })
 export class CreateEmployeeComponent implements OnInit {
-    constructor() {}
+    salary: string = "";
+    showSuccess: boolean;
+    showError:boolean;
+    constructor(private employeeService: EmployeeService) {
+    }
 
     ngOnInit() {}
 
@@ -18,12 +24,12 @@ export class CreateEmployeeComponent implements OnInit {
         let formInput = form.value;
 
         let employeeObject = {
-            "firstName": formInput.firstName,
-            "lastName": formInput.lastName,
-            "email": formInput.email,
-            "phoneNumber": formInput.phoneNumber,
-            "socialSecurityNumber": formInput.socialSecurityNumber,
-            "address": formInput.address,
+            "FirstName": formInput.firstName,
+            "LastName": formInput.lastName,
+            "Email": formInput.email,
+            "PhoneNumber": formInput.phoneNumber,
+            "SSN": formInput.socialSecurityNumber,
+            "Address": formInput.address,
             "empSalary": {
                 "grossPay": formInput.grossPay == "" ? 0: formInput.grossPay,
                 "stateTax": formInput.stateTax == "" ? 0: formInput.stateTax,
@@ -36,5 +42,19 @@ export class CreateEmployeeComponent implements OnInit {
         };
 
         console.log(employeeObject);
+
+        this.employeeService.createEmployee(employeeObject).subscribe(result => {
+            console.log(result["_body"]);
+            this.salary = result["_body"];
+            this.showSuccess = true;
+        }, error => {
+            console.log(error);
+            this.showError = true;
+        });
+    }
+
+    public closeAlert() {
+        this.showSuccess = false;
+        this.showError = false;
     }
 }

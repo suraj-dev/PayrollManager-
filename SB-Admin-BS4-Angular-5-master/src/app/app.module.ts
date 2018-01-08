@@ -16,6 +16,9 @@ import { SidebarComponent } from './layout/components/sidebar/sidebar.component'
 import { HeaderComponent } from './layout/components/header/header.component';
 import { LoginComponent } from './login/login.component';
 import {NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { EmployeeService } from './services/employee.service';
+import { HttpModule } from '@angular/http';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http:HttpClient) {
@@ -39,7 +42,9 @@ export function createTranslateLoader(http:HttpClient) {
         }),
         AppRoutingModule,
         NgbModule.forRoot(),
-        FormsModule
+        FormsModule,
+        HttpModule,
+        ToastModule.forRoot()
     ],
     declarations: [AppComponent,
         CreateEmployeeComponent,
@@ -49,7 +54,7 @@ export function createTranslateLoader(http:HttpClient) {
         HeaderComponent,
         LoginComponent
     ],
-    providers: [AuthGuard, NgbModal],
+    providers: [AuthGuard, NgbModal, EmployeeService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {EmployeeService} from "../../services/employee.service";
+import {IEmployee} from "../../interfaces/IEmployee";
 
 @Component({
     selector: 'app-dashboard',
@@ -9,27 +11,41 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
     animations: [routerTransition()]
 })
 export class ListOfEmployeesComponent implements OnInit {
-
-    ngOnInit() {}
-
-    constructor(private modalService: NgbModal) {}
-
-    open(content) {
-        this.modalService.open(content).result.then((result) => {
-
-        }, (reason) => {
-
-        });
+    employeeList: Array<IEmployee>;
+    selectedEmployee: IEmployee;
+    selectedEmployeeIndex: number;
+    constructor(private modalService: NgbModal, private employeeService: EmployeeService) {
     }
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
+    ngOnInit() {
+        this.employeeService.getEmployees().subscribe(result  => {
+             this.employeeList = JSON.parse(result["_body"]);
+            console.log(this.employeeList);
+        }, error => {
+            console.log("Could not retrieve employees: " + error);
+        })
     }
+
+    open(content, index) {
+        this.selectedEmployeeIndex = index;
+        this.modalService.open(content);
+        this.selectedEmployee = this.employeeList[index];
+    }
+
+    deleteEmployee() {
+        let employeeId = this.employeeList[this.selectedEmployeeIndex].empSalary.EmployeeId;
+        this.employeeService.deleteEmployee(employeeId).subscribe(result => {
+            this.employeeList.splice(this.selectedEmployeeIndex, 1);
+            console.log("Employee deleted successfully");
+        }, error => {
+            console.log("Failed to delete employee");
+        })
+    }
+
+    openDeleteDialog(content) {
+        this.modalService.open(content);
+    }
+
+
 
 }
