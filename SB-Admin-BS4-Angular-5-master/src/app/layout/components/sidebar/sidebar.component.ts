@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
+/**
+ * This component is responsible for managing the sidebar present in the layout
+ */
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',

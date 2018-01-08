@@ -1,3 +1,6 @@
+/**
+ * Interface containing Salary related information
+ */
 export interface ISalary {
     EmployeeId?: number;
     grossPay?: number;

@@ -1,5 +1,8 @@
 import { Component, OnInit , OnChanges } from '@angular/core';
 
+/**
+ * This component is the root component of the application.
+ */
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',

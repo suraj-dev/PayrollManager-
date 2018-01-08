@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {EmployeeService} from "../../services/employee.service";
 
-
+/**
+ * This component serves data to the create employee view and interacts with the employee service
+ * to create an employee.
+ */
 @Component({
     selector: 'app-charts',
     templateUrl: './create-employee.component.html',
@@ -13,11 +16,21 @@ export class CreateEmployeeComponent implements OnInit {
     showSuccess: boolean;
     showError:boolean;
     showConflictError:boolean;
+
+    /**
+     * Constructor used for injecting services and initializing class variables
+     * @param employeeService
+     */
     constructor(private employeeService: EmployeeService) {
     }
 
     ngOnInit() {}
 
+    /**
+     * This function accepts the form data from the view and constructs employee object that is sent to the
+     * employee service for employee creation
+     * @param form
+     */
     createEmployee(form: NgForm) {
 
         let formInput = form.value;
@@ -55,6 +68,10 @@ export class CreateEmployeeComponent implements OnInit {
         });
     }
 
+    /**
+     * This function accepts the type of alert to be closed and sets its boolean value to false
+     * @param status - a string containing the type of alert to be closed
+     */
     public closeAlert(status: string) {
         if(status === 'success')
             this.showSuccess = false;

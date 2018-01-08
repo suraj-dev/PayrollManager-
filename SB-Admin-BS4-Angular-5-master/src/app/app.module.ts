@@ -19,6 +19,10 @@ import { EmployeeService } from './services/employee.service';
 import { HttpModule } from '@angular/http';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
+/**
+ * Main module of the application that imports modules, declares components and makes providers available for the
+ * rest of the application.
+ */
 @NgModule({
     imports: [
         CommonModule,
