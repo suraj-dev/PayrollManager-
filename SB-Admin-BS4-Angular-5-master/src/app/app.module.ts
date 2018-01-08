@@ -14,18 +14,10 @@ import {ListOfEmployeesComponent} from './layout/list-of-employees/list-of-emplo
 import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/components/sidebar/sidebar.component';
 import { HeaderComponent } from './layout/components/header/header.component';
-import { LoginComponent } from './login/login.component';
 import {NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeService } from './services/employee.service';
 import { HttpModule } from '@angular/http';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
-
-// AoT requires an exported function for factories
-export function createTranslateLoader(http:HttpClient) {
-    // for development
-    // return new TranslateHttpLoader(http, '/start-angular/SB-Admin-BS4-Angular-5/master/dist/assets/i18n/', '.json');
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
     imports: [
@@ -33,26 +25,18 @@ export function createTranslateLoader(http:HttpClient) {
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
         AppRoutingModule,
         NgbModule.forRoot(),
         FormsModule,
         HttpModule,
-        ToastModule.forRoot()
+        ToastModule.forRoot(),
     ],
     declarations: [AppComponent,
         CreateEmployeeComponent,
         ListOfEmployeesComponent,
         LayoutComponent,
         SidebarComponent,
-        HeaderComponent,
-        LoginComponent
+        HeaderComponent
     ],
     providers: [AuthGuard, NgbModal, EmployeeService],
     bootstrap: [AppComponent]

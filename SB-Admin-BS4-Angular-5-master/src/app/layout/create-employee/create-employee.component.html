@@ -3,22 +3,35 @@
     <hr>
     <form #createEmployeeForm="ngForm" (ngSubmit)="createEmployee(createEmployeeForm)">
         <div class="form-group row">
-            <label for="fname" class="col-sm-2 col-form-label">First Name:</label>
+            <label for="fname" class="col-sm-2 col-form-label required-field">First Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="firstName" class="form-control medium-input" id="fname" placeholder="Enter first name" ngModel>
+                <input type="text" name="firstName" class="form-control medium-input" id="fname" placeholder="Enter first name" ngModel #firstName="ngModel" required>
+                <div *ngIf="firstName.errors?.required && firstName.touched" class="error">
+                    First Name is required
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="lname" class="col-sm-2 col-form-label">Last Name:</label>
+            <label for="lname" class="col-sm-2 col-form-label required-field">Last Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="lastName" class="form-control medium-input" id="lname" placeholder="Enter last name" ngModel>
+                <input type="text" name="lastName" class="form-control medium-input" id="lname" placeholder="Enter last name" ngModel #lastName="ngModel" required>
+                <div *ngIf="lastName.errors?.required && lastName.touched" class="error">
+                    Last Name is required
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="emailaddr" class="col-sm-2 col-form-label">Email:</label>
+            <label for="emailaddr" class="col-sm-2 col-form-label required-field">Email:</label>
             <div class="col-sm-10">
-                <input type="email" name="email" class="form-control medium-input" id="emailaddr"
-                       placeholder="Enter email address" ngModel>
+                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                       name="email" class="form-control medium-input" id="emailaddr"
+                       placeholder="Enter email address" ngModel #email="ngModel" required>
+                <div *ngIf="email.errors?.required && email.touched" class="error">
+                    Email address is required
+                </div>
+                <div *ngIf="email.errors?.pattern && email.touched" class="error">
+                    Email address format is not valid
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -36,10 +49,16 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="ssn" class="col-sm-2 col-form-label">Phone Number:</label>
+            <label for="ssn" class="col-sm-2 col-form-label required-field">SSN:</label>
             <div class="col-sm-10">
-                <input type="number" name="socialSecurityNumber" class="form-control medium-input" id="ssn"
-                       placeholder="Enter social security number" ngModel>
+                <input type="number" pattern="\d{9}" name="socialSecurityNumber" class="form-control medium-input" id="ssn"
+                       placeholder="Enter social security number" ngModel #ssn="ngModel" required>
+                <div *ngIf="ssn.errors?.required && ssn.touched" class="error">
+                    Social Security Number is required
+                </div>
+                <div *ngIf="ssn.errors?.pattern && ssn.touched" class="error">
+                    Social Security Number should have 9 digits
+                </div>
             </div>
         </div>
 
@@ -95,7 +114,7 @@
                        placeholder="Enter bonus in USD" ngModel>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary left-margin">Submit</button>
+        <button type="submit" [disabled]="createEmployeeForm.invalid" class="btn btn-primary left-margin">Submit</button>
     </form>
     <br>
     <ngb-alert *ngIf="showSuccess" type="success" (close)="closeAlert()">Employee created successfully! The payable salary is {{salary}}</ngb-alert>

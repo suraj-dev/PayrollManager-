@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
 import { NgForm } from '@angular/forms';
 import {EmployeeService} from "../../services/employee.service";
 
@@ -8,7 +7,6 @@ import {EmployeeService} from "../../services/employee.service";
     selector: 'app-charts',
     templateUrl: './create-employee.component.html',
     styleUrls: ['./create-employee.component.scss'],
-    animations: [routerTransition()]
 })
 export class CreateEmployeeComponent implements OnInit {
     salary: string = "";

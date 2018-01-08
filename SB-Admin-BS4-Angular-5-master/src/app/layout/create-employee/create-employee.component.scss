@@ -22,3 +22,12 @@
     margin-left: 20%;
     width: 20%;
 }
+
+.required-field::after {
+    content: "*";
+    color: red;
+}
+
+.error {
+    color: red;
+}

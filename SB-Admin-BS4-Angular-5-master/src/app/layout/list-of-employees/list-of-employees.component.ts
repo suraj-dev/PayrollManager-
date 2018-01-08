@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeService} from "../../services/employee.service";
 import {IEmployee} from "../../interfaces/IEmployee";
 
@@ -8,12 +7,13 @@ import {IEmployee} from "../../interfaces/IEmployee";
     selector: 'app-dashboard',
     templateUrl: './list-of-employees.component.html',
     styleUrls: ['./list-of-employees.component.scss'],
-    animations: [routerTransition()]
 })
 export class ListOfEmployeesComponent implements OnInit {
     employeeList: Array<IEmployee>;
     selectedEmployee: IEmployee;
     selectedEmployeeIndex: number;
+    employeeModalReference: NgbModalRef;
+    deleteDialogModalReference: NgbModalRef;
     constructor(private modalService: NgbModal, private employeeService: EmployeeService) {
     }
 
@@ -28,14 +28,17 @@ export class ListOfEmployeesComponent implements OnInit {
 
     open(content, index) {
         this.selectedEmployeeIndex = index;
-        this.modalService.open(content);
+        this.employeeModalReference= this.modalService.open(content);
         this.selectedEmployee = this.employeeList[index];
     }
 
     deleteEmployee() {
         let employeeId = this.employeeList[this.selectedEmployeeIndex].empSalary.EmployeeId;
+
         this.employeeService.deleteEmployee(employeeId).subscribe(result => {
             this.employeeList.splice(this.selectedEmployeeIndex, 1);
+            this.deleteDialogModalReference.close();
+            this.employeeModalReference.close();
             console.log("Employee deleted successfully");
         }, error => {
             console.log("Failed to delete employee");
@@ -43,7 +46,7 @@ export class ListOfEmployeesComponent implements OnInit {
     }
 
     openDeleteDialog(content) {
-        this.modalService.open(content);
+        this.deleteDialogModalReference = this.modalService.open(content);
     }
 
 

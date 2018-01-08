@@ -23,6 +23,6 @@ export class EmployeeService {
     }
 
     deleteEmployee(employeeId) {
-        return this.http.delete(this.serverUrl + "/api/" + employeeId);
+        return this.http.delete(this.serverUrl + "/api/employee/" + employeeId);
     }
 }
