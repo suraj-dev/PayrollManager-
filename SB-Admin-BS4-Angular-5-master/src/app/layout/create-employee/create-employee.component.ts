@@ -12,6 +12,7 @@ export class CreateEmployeeComponent implements OnInit {
     salary: string = "";
     showSuccess: boolean;
     showError:boolean;
+    showConflictError:boolean;
     constructor(private employeeService: EmployeeService) {
     }
 
@@ -42,17 +43,24 @@ export class CreateEmployeeComponent implements OnInit {
         console.log(employeeObject);
 
         this.employeeService.createEmployee(employeeObject).subscribe(result => {
-            console.log(result["_body"]);
+            console.log(result);
             this.salary = result["_body"];
             this.showSuccess = true;
         }, error => {
-            console.log(error);
-            this.showError = true;
+            console.log("Error: "+ error.status);
+            if(error.status === 409)
+                this.showConflictError = true;
+            else
+                this.showError = true;
         });
     }
 
-    public closeAlert() {
-        this.showSuccess = false;
-        this.showError = false;
+    public closeAlert(status: string) {
+        if(status === 'success')
+            this.showSuccess = false;
+        else if(status === 'error')
+            this.showError = false;
+        else if(status === 'conflict')
+            this.showConflictError= false;
     }
 }

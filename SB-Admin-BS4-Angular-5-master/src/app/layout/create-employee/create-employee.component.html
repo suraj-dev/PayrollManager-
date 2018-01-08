@@ -117,7 +117,8 @@
         <button type="submit" [disabled]="createEmployeeForm.invalid" class="btn btn-primary left-margin">Submit</button>
     </form>
     <br>
-    <ngb-alert *ngIf="showSuccess" type="success" (close)="closeAlert()">Employee created successfully! The payable salary is {{salary}}</ngb-alert>
-    <ngb-alert *ngIf="showError" type="danger" (close)="closeAlert()">Failed to create employee!</ngb-alert>
+    <ngb-alert *ngIf="showSuccess" type="success" (close)="closeAlert('success')">Employee created successfully! The payable salary is {{salary}}</ngb-alert>
+    <ngb-alert *ngIf="showError" type="danger" (close)="closeAlert('error')">Failed to create employee!</ngb-alert>
+    <ngb-alert *ngIf="showConflictError" type="danger" (close)="closeAlert('conflict')">Employee record already exists</ngb-alert>
 
 </section>
