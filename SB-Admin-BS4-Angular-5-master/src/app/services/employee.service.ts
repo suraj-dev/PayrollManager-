@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import {IEmployee} from "../interfaces/IEmployee";
 
 /**
  * This service provides functions to retrieve, create and delete employees
@@ -34,7 +35,7 @@ export class EmployeeService {
      * @param employee - a json object containing the employee information
      * @returns {Observable<Response>}
      */
-    createEmployee(employee) {
+    createEmployee(employee: IEmployee) {
         let options = new RequestOptions();
         options.headers = this.headers;
         return this.http.post(this.serverUrl + "/api/employee", employee, options);

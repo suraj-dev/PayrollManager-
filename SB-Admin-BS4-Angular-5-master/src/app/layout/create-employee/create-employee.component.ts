@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {EmployeeService} from "../../services/employee.service";
+import {IEmployee} from "../../interfaces/IEmployee";
 
 /**
  * This component serves data to the create employee view and interacts with the employee service
@@ -12,8 +13,8 @@ import {EmployeeService} from "../../services/employee.service";
     styleUrls: ['./create-employee.component.scss'],
 })
 export class CreateEmployeeComponent implements OnInit {
-    salary: string = "";
-    showSuccess: boolean;
+    salary:string = "";
+    showSuccess:boolean;
     showError:boolean;
     showConflictError:boolean;
 
@@ -21,47 +22,31 @@ export class CreateEmployeeComponent implements OnInit {
      * Constructor used for injecting services and initializing class variables
      * @param employeeService
      */
-    constructor(private employeeService: EmployeeService) {
+    constructor(private employeeService:EmployeeService) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     /**
      * This function accepts the form data from the view and constructs employee object that is sent to the
      * employee service for employee creation
      * @param form
      */
-    createEmployee(form: NgForm) {
+    createEmployee(form:NgForm) {
 
-        let formInput = form.value;
+        let formInput: IEmployee = form.value;
+        let sanitizedInput: IEmployee = this.sanitize(formInput);
 
-        let employeeObject = {
-            "FirstName": formInput.firstName,
-            "LastName": formInput.lastName,
-            "Email": formInput.email,
-            "PhoneNumber": formInput.phoneNumber,
-            "SSN": formInput.socialSecurityNumber,
-            "Address": formInput.Address == null ? "": formInput.Address,
-            "empSalary": {
-                "grossPay": formInput.grossPay == "" ? 0: formInput.grossPay,
-                "stateTax": formInput.stateTax == "" ? 0: formInput.stateTax,
-                "federalTax": formInput.federalTax == "" ? 0: formInput.federalTax,
-                "socialSecurityTax": formInput.ssnTax == "" ? 0: formInput.ssnTax,
-                "bonus": formInput.bonus == "" ? 0: formInput.bonus,
-                "reimbursements": formInput.reimbursements == "" ? 0: formInput.reimbursements,
-                "healthInsurance": formInput.healthInsurance == "" ? 0: formInput.healthInsurance
-            }
-        };
+        console.log(sanitizedInput);
 
-        console.log(employeeObject);
-
-        this.employeeService.createEmployee(employeeObject).subscribe(result => {
+        this.employeeService.createEmployee(sanitizedInput).subscribe(result => {
             console.log(result);
             this.salary = result["_body"];
             this.showSuccess = true;
             form.reset();
         }, error => {
-            console.log("Error: "+ error);
+            console.log("Error: "+ error._body);
             if(error.status === 409)
                 this.showConflictError = true;
             else
@@ -73,12 +58,30 @@ export class CreateEmployeeComponent implements OnInit {
      * This function accepts the type of alert to be closed and sets its boolean value to false
      * @param status - a string containing the type of alert to be closed
      */
-    public closeAlert(status: string) {
-        if(status === 'success')
+    closeAlert(status:string) {
+        if (status === 'success')
             this.showSuccess = false;
-        else if(status === 'error')
+        else if (status === 'error')
             this.showError = false;
-        else if(status === 'conflict')
-            this.showConflictError= false;
+        else if (status === 'conflict')
+            this.showConflictError = false;
+    }
+
+    /**
+     * This function checks non required values in the form and sets default values for them if they are null or
+     * empty
+     * @param employee object
+     * @returns {IEmployee}
+     */
+    sanitize(employee) {
+        employee.Address = employee.Address == null ? "" : employee.Address;
+        employee.empSalary.grossPay = employee.empSalary.grossPay == "" ? 0 : employee.empSalary.grossPay;
+        employee.empSalary.stateTax = employee.empSalary.stateTax == "" ? 0 : employee.empSalary.stateTax;
+        employee.empSalary.federalTax = employee.empSalary.federalTax == "" ? 0 : employee.empSalary.federalTax;
+        employee.empSalary.socialSecurityTax = employee.empSalary.socialSecurityTax == "" ? 0 : employee.empSalary.socialSecurityTax;
+        employee.empSalary.bonus = employee.empSalary.bonus == "" ? 0 : employee.empSalary.bonus;
+        employee.empSalary.reimbursements = employee.empSalary.reimbursements == "" ? 0 : employee.empSalary.reimbursements;
+        employee.empSalary.healthInsurance = employee.empSalary.healthInsurance == "" ? 0 : employee.empSalary.healthInsurance;
+        return employee;
     }
 }
