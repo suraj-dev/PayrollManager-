@@ -41,7 +41,7 @@ export class CreateEmployeeComponent implements OnInit {
             "Email": formInput.email,
             "PhoneNumber": formInput.phoneNumber,
             "SSN": formInput.socialSecurityNumber,
-            "Address": formInput.address,
+            "Address": formInput.Address == null ? "": formInput.Address,
             "empSalary": {
                 "grossPay": formInput.grossPay == "" ? 0: formInput.grossPay,
                 "stateTax": formInput.stateTax == "" ? 0: formInput.stateTax,
@@ -59,8 +59,9 @@ export class CreateEmployeeComponent implements OnInit {
             console.log(result);
             this.salary = result["_body"];
             this.showSuccess = true;
+            form.reset();
         }, error => {
-            console.log("Error: "+ error.status);
+            console.log("Error: "+ error);
             if(error.status === 409)
                 this.showConflictError = true;
             else

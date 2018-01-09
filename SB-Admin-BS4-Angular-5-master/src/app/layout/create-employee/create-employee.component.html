@@ -5,18 +5,24 @@
         <div class="form-group row">
             <label for="fname" class="col-sm-2 col-form-label required-field">First Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="firstName" class="form-control medium-input" id="fname" placeholder="Enter first name" ngModel #firstName="ngModel" required>
+                <input type="text" pattern="^[a-zA-Z]+$" name="firstName" class="form-control medium-input" id="fname" placeholder="Enter first name" ngModel #firstName="ngModel" required>
                 <div *ngIf="firstName.errors?.required && firstName.touched" class="error">
                     First Name is required
+                </div>
+                <div *ngIf="firstName.errors?.pattern && firstName.touched" class="error">
+                    First Name should contain only letters
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="lname" class="col-sm-2 col-form-label required-field">Last Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="lastName" class="form-control medium-input" id="lname" placeholder="Enter last name" ngModel #lastName="ngModel" required>
+                <input type="text" pattern="^[a-zA-Z\s]*$" name="lastName" class="form-control medium-input" id="lname" placeholder="Enter last name" ngModel #lastName="ngModel" required>
                 <div *ngIf="lastName.errors?.required && lastName.touched" class="error">
                     Last Name is required
+                </div>
+                <div *ngIf="lastName.errors?.pattern && lastName.touched" class="error">
+                    Last Name should contain only letters
                 </div>
             </div>
         </div>
@@ -42,10 +48,16 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number:</label>
+            <label for="phoneNo" class="col-sm-2 col-form-label required-field">Phone Number:</label>
             <div class="col-sm-10">
-                <input type="number" name="phoneNumber" class="form-control medium-input" id="phoneNo"
-                       placeholder="Enter phone number" ngModel>
+                <input type="number" pattern="\d{10}" name="phoneNumber" class="form-control medium-input" id="phoneNo"
+                       placeholder="Enter phone number" ngModel #phoneNumber="ngModel" required>
+                <div *ngIf="phoneNumber.errors?.required && phoneNumber.touched" class="error">
+                    Phone Number is required
+                </div>
+                <div *ngIf="phoneNumber.errors?.pattern && phoneNumber.touched" class="error">
+                    Phone Number should have 10 digits
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -75,29 +87,43 @@
         <div class="form-group row">
             <label for="stateTax" class="col-sm-2 col-form-label">State Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" name="stateTax" class="form-control medium-input" id="stateTax"
-                       placeholder="Enter state tax in percentage" ngModel>
+                <input type="number" pattern="^(\d{0,2}(\.\d{1,2})?|100(\.00?)?)$" name="stateTax" class="form-control medium-input" id="stateTax"
+                       placeholder="Enter state tax in percentage" ngModel #stateTax="ngModel">
+                <div *ngIf="stateTax.errors?.pattern && stateTax.touched" class="error">
+                    Percentage should be between 0 and 100
+                </div>
             </div>
+
         </div>
         <div class="form-group row">
             <label for="federalTax" class="col-sm-2 col-form-label">Federal Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" name="federalTax" class="form-control medium-input" id="federalTax"
-                       placeholder="Enter federal tax in percentage" ngModel>
+                <input type="number" pattern="^(\d{0,2}(\.\d{1,2})?|100(\.00?)?)$" name="federalTax" class="form-control medium-input" id="federalTax"
+                       placeholder="Enter federal tax in percentage" ngModel #federalTax="ngModel">
+                <div *ngIf="federalTax.errors?.pattern && federalTax.touched" class="error">
+                    Percentage should be between 0 and 100
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="healthInsurance" class="col-sm-2 col-form-label">Health Insurance(%):</label>
             <div class="col-sm-10">
-                <input type="number" name="healthInsurance" class="form-control medium-input" id="healthInsurance"
-                       placeholder="Enter health insurance deduction in percentage" ngModel>
+                <input type="number" pattern="^(\d{0,2}(\.\d{1,2})?|100(\.00?)?)$" name="healthInsurance" class="form-control medium-input" id="healthInsurance"
+                       placeholder="Enter health insurance deduction in percentage" ngModel #healthInsurance="ngModel">
+                <div *ngIf="healthInsurance.errors?.pattern && healthInsurance.touched" class="error">
+                    Percentage should be between 0 and 100
+                </div>
             </div>
+
         </div>
         <div class="form-group row">
             <label for="ssnTax" class="col-sm-2 col-form-label">Social Security Tax(%):</label>
             <div class="col-sm-10">
-                <input type="number" name="ssnTax" class="form-control medium-input" id="ssnTax"
-                       placeholder="Enter social security tax in percentage" ngModel>
+                <input type="number" pattern="^(\d{0,2}(\.\d{1,2})?|100(\.00?)?)$" name="ssnTax" class="form-control medium-input" id="ssnTax"
+                       placeholder="Enter social security tax in percentage" ngModel #ssnTax="ngModel">
+                <div *ngIf="ssnTax.errors?.pattern && ssnTax.touched" class="error">
+                    Percentage should be between 0 and 100
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -117,7 +143,7 @@
         <button type="submit" [disabled]="createEmployeeForm.invalid" class="btn btn-primary left-margin">Submit</button>
     </form>
     <br>
-    <ngb-alert *ngIf="showSuccess" type="success" (close)="closeAlert('success')">Employee created successfully! The payable salary is {{salary}}</ngb-alert>
+    <ngb-alert *ngIf="showSuccess" type="success" (close)="closeAlert('success')">Employee created successfully! The payable salary is {{salary | currency}}</ngb-alert>
     <ngb-alert *ngIf="showError" type="danger" (close)="closeAlert('error')">Failed to create employee!</ngb-alert>
     <ngb-alert *ngIf="showConflictError" type="danger" (close)="closeAlert('conflict')">Employee record already exists</ngb-alert>
 

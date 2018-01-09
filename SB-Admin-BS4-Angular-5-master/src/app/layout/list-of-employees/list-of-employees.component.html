@@ -3,7 +3,7 @@
     <div class="table-responsive">
     <table class="table table-hover table-bordered">
         <thead class="thead-inverse">
-        <tr>
+        <tr class="highlight">
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email Id</th>
@@ -74,43 +74,49 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Annual Gross Pay:</label>
                     <div class="col-sm-8">
-                        <label name="grossPay" class="col-form-label">{{selectedEmployee.grossPay}}</label>
+                        <label name="grossPay" class="col-form-label">{{selectedEmployee.empSalary.grossPay | currency}}</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">State Tax(%):</label>
+                    <label class="col-sm-4 col-form-label">State Tax:</label>
                     <div class="col-sm-8">
-                        <label name="stateTax" class="col-form-label">{{selectedEmployee.stateTax}}</label>
+                        <label name="stateTax" class="col-form-label">{{selectedEmployee.empSalary.stateTax}}%</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Federal Tax(%):</label>
+                    <label class="col-sm-4 col-form-label">Federal Tax:</label>
                     <div class="col-sm-8">
-                        <label name="federalTax" class="col-form-label">{{selectedEmployee.federalTax}}</label>
+                        <label name="federalTax" class="col-form-label">{{selectedEmployee.empSalary.federalTax}}%</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Health Insurance(%):</label>
+                    <label class="col-sm-4 col-form-label">Health Insurance:</label>
                     <div class="col-sm-8">
-                        <label name="healthInsurance" class="col-form-label">{{selectedEmployee.healthInsurance}}</label>
+                        <label name="healthInsurance" class="col-form-label">{{selectedEmployee.empSalary.healthInsurance}}%</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Social Security Tax(%):</label>
+                    <label class="col-sm-4 col-form-label">Social Security Tax:</label>
                     <div class="col-sm-8">
-                        <label name="ssnTax" class="col-form-label">{{selectedEmployee.socialSecurityTax}}</label>
+                        <label name="ssnTax" class="col-form-label">{{selectedEmployee.empSalary.socialSecurityTax}}%</label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Reimbursements:</label>
                     <div class="col-sm-8">
-                        <label name="firstName" class="col-form-label">{{selectedEmployee.reimbursements}}</label>
+                        <label name="reimbursements" class="col-form-label">{{selectedEmployee.empSalary.reimbursements | currency}}</label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Bonus:</label>
                     <div class="col-sm-8">
-                        <label name="firstName" class="col-form-label">{{selectedEmployee.bonus}}</label>
+                        <label name="bonus" class="col-form-label">{{selectedEmployee.empSalary.bonus | currency}}</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Payable Salary:</label>
+                    <div class="col-sm-8">
+                        <label name="payableSalary" class="col-form-label">{{selectedEmployee.empSalary.payableSalary | currency}}</label>
                     </div>
                 </div>
             </form>
@@ -124,7 +130,7 @@
     <!-- deletion confirmation modal -->
     <ng-template #deletionConfirmation let-cl="close" let-ds="dismiss">
         <div class="modal-header">
-            <h4 class="modal-title">Modal title</h4>
+            <h4 class="modal-title">Delete</h4>
             <button type="button" class="close" aria-label="Close" (click)="ds('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -134,7 +140,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" (click)="cl('Close click')">No</button>
-            <button type="button" class="btn btn-outline-dark" (click)="deleteEmployee()">Yes</button>
+            <button type="button" class="btn btn-danger" (click)="deleteEmployee()">Yes</button>
         </div>
     </ng-template>
 </section>
